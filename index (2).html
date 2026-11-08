@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz: descubra o treino ideal pra sua rotina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0b; --panel:#141414; --line:#2a2a2a;
+    --gold:#d4af37; --gold-2:#f1d27a; --gold-dim:#8a7225;
+    --txt:#f3f0e8; --muted:#a39e92;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--txt);font-family:"Archivo",system-ui,sans-serif;min-height:100%}
+  body{display:flex;justify-content:center;padding:28px 18px 48px}
+  .wrap{width:100%;max-width:480px}
+  .brand{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:30px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+  .logo{width:110px;height:auto;display:block}
+  .brand-name{font-family:"Oswald";font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:18px;color:var(--txt);text-align:center}
+  .brand-sub{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-top:-6px}
+  h1,h2{font-family:"Oswald";text-transform:uppercase;line-height:1.05;letter-spacing:.01em}
+  h1{font-size:40px;font-weight:700}
+  h1 em,h2 em{font-style:normal;color:var(--gold)}
+  h2{font-size:28px;font-weight:600;margin-bottom:20px}
+  p.lead{color:var(--muted);font-size:16px;line-height:1.5;margin:16px 0 26px}
+  .bullets{list-style:none;margin:0 0 30px;display:grid;gap:10px}
+  .bullets li{display:flex;gap:10px;font-size:15px;color:var(--txt)}
+  .bullets li::before{content:"";flex:0 0 8px;height:8px;margin-top:6px;background:var(--gold);transform:rotate(45deg)}
+  .btn{display:block;width:100%;border:0;cursor:pointer;text-align:center;text-decoration:none;
+       background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#111;font-family:"Oswald";
+       font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase;padding:17px 20px;border-radius:4px;
+       transition:transform .12s, filter .12s}
+  .btn:active{transform:scale(.98)}
+  .btn:hover{filter:brightness(1.06)}
+  .btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold-dim);margin-top:10px;font-size:15px}
+  .small{font-size:13px;color:var(--muted);text-align:center;margin-top:12px}
+  .progress{height:3px;background:var(--line);margin-bottom:10px;border-radius:2px;overflow:hidden}
+  .progress i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+  .step-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .opts{display:grid;gap:10px}
+  .opt{background:var(--panel);border:1px solid var(--line);color:var(--txt);text-align:left;cursor:pointer;
+       padding:16px 16px;border-radius:4px;font:500 16px "Archivo";display:flex;align-items:center;gap:12px;
+       transition:border-color .15s, background .15s}
+  .opt:hover{border-color:var(--gold-dim)}
+  .opt.sel{border-color:var(--gold);background:#1b1708}
+  .opt b{flex:0 0 26px;height:26px;border:1px solid var(--gold-dim);display:grid;place-items:center;
+         font:600 13px "Oswald";color:var(--gold);border-radius:3px}
+  .ig{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.04em}
+  .ig:hover{color:var(--gold)}
+  .ig-btn{display:flex;align-items:center;justify-content:center;gap:8px;text-transform:none;letter-spacing:.02em}
+  .lbl{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
+  .back{background:none;border:0;color:var(--muted);font:500 14px "Archivo";margin-top:18px;cursor:pointer}
+  input[type=text]{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--txt);
+       padding:16px;font:500 17px "Archivo";border-radius:4px;margin-bottom:14px;outline:none}
+  input[type=text]:focus{border-color:var(--gold)}
+  .card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--gold);padding:22px;border-radius:4px;margin-bottom:18px}
+  .tag{display:inline-block;font:600 12px "Oswald";letter-spacing:.14em;text-transform:uppercase;color:#111;
+       background:var(--gold);padding:5px 10px;margin-bottom:14px}
+  .card p{color:var(--muted);line-height:1.55;font-size:15px}
+  .tips{list-style:none;counter-reset:t;display:grid;gap:14px;margin:6px 0 24px}
+  .tips li{counter-increment:t;display:flex;gap:12px;font-size:15px;line-height:1.5}
+  .tips li::before{content:counter(t);flex:0 0 28px;height:28px;display:grid;place-items:center;
+       font:600 14px "Oswald";color:var(--gold);border:1px solid var(--gold-dim)}
+  .offer{border:1px dashed var(--gold-dim);padding:18px;border-radius:4px;margin-bottom:16px}
+  .offer h3{font:600 18px "Oswald";text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .offer p{font-size:15px;line-height:1.5;color:var(--txt)}
+  .num{font-size:13px;color:var(--muted);text-align:center;margin-top:10px}
+  .screen{display:none;animation:in .3s ease}
+  .screen.on{display:block}
+  @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <svg class="logo" role="img" aria-label="Logo EC" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 687" fill="#D4AF37"><polygon points="65,20 434,20 398,82 105,82"/><polygon points="500,20 750,20 717,81 534,81 400,322 642,322 607,384 296,384"/><polygon points="23,181 341,181 308,243 141,243 198,322 265,322 238,383 374,572 463,450 502,487 371,667"/></svg>
+    <div class="brand-name" id="brandName">Eduardo Chultz</div>
+    <div class="brand-sub">Personal Trainer</div>
+    <a class="ig" href="https://instagram.com/eduardo__chultz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@eduardo__chultz</a>
+  </div>
+
+  <!-- INÍCIO -->
+  <section class="screen on" id="s-start">
+    <h1>Por que você <em>não evolui</em> no treino?</h1>
+    <p class="lead">Treinar mais não é treinar melhor. Responda 6 perguntas rápidas e descubra o que está travando seu resultado e o que fazer agora.</p>
+    <ul class="bullets">
+      <li>Leva menos de 1 minuto</li>
+      <li>Resultado na hora, de graça</li>
+      <li>Pensado pra quem tem pouco tempo pra treinar</li>
+    </ul>
+    <button class="btn" onclick="go(0)">Começar o quiz</button>
+    <p class="small">Sem cadastro. Sem enrolação.</p>
+  </section>
+
+  <!-- PERGUNTAS -->
+  <section class="screen" id="s-q">
+    <div class="progress"><i id="bar"></i></div>
+    <div class="step-label" id="stepLabel"></div>
+    <h2 id="qTitle"></h2>
+    <div class="opts" id="opts"></div>
+    <button class="back" onclick="back()">← Voltar</button>
+  </section>
+
+  <!-- LOCAL (só presencial) -->
+  <section class="screen" id="s-local">
+    <div class="progress"><i style="width:100%"></i></div>
+    <div class="step-label">Treino presencial</div>
+    <h2>Onde você <em>treina?</em></h2>
+    <div>
+      <label class="lbl" for="cidade">Cidade e bairro</label>
+      <input type="text" id="cidade" placeholder="Ex.: Porto Alegre, Moinhos de Vento" maxlength="60">
+      <label class="lbl" for="academia">Academia onde treina (ou quer treinar)</label>
+      <input type="text" id="academia" placeholder="Nome da academia" maxlength="60">
+      <button class="btn" type="button" onclick="show('s-name')">Continuar</button>
+    </div>
+    <button class="back" onclick="go(Q.length-1)">← Voltar</button>
+  </section>
+
+  <!-- NOME -->
+  <section class="screen" id="s-name">
+    <div class="progress"><i style="width:100%"></i></div>
+    <div class="step-label">Último passo</div>
+    <h2>Como posso <em>te chamar?</em></h2>
+    <div>
+      <input type="text" id="nome" placeholder="Seu primeiro nome" maxlength="30" autocomplete="given-name">
+      <button class="btn" type="button" onclick="showResult()">Ver meu resultado</button>
+    </div>
+    <button class="back" onclick="A.mod==='pres' ? show('s-local') : go(Q.length-1)">← Voltar</button>
+  </section>
+
+  <!-- RESULTADO -->
+  <section class="screen" id="s-result">
+    <div class="step-label" id="rHello"></div>
+    <div class="card">
+      <span class="tag">Seu perfil</span>
+      <h2 id="rTitle" style="margin-bottom:12px"></h2>
+      <p id="rDesc"></p>
+    </div>
+    <h2 style="font-size:20px;margin-bottom:14px">O que fazer <em>agora</em></h2>
+    <ol class="tips" id="rTips"></ol>
+    <div class="method">
+      <h2 style="font-size:20px;margin-bottom:14px">Como eu <em>trabalho</em></h2>
+      <ul class="bullets">
+        <li>Melhor estímulo, não o maior cansaço</li>
+        <li>Exercícios multiarticulares em primeiro lugar</li>
+        <li>Descanso de 2 a 3 minutos entre as séries</li>
+        <li>Séries com 1 a 2 repetições sobrando, falha só na última</li>
+        <li>Progressão de carga planejada e técnica impecável</li>
+      </ul>
+    </div>
+    <div class="offer">
+      <h3 id="oTitle"></h3>
+      <p id="oText"></p>
+    </div>
+    <a class="btn" id="cta" href="#" target="_blank" rel="noopener">Falar comigo no WhatsApp</a>
+    <p class="num" id="numTxt"></p>
+    <a class="btn ghost ig-btn" href="https://instagram.com/eduardo__chultz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Me siga no Instagram @eduardo__chultz</a>
+    <button class="back" style="display:block;margin:18px auto 0" onclick="restart()">↺ Refazer o quiz</button>
+  </section>
+
+</div>
+
+<script>
+/* ====== CONFIGURAÇÃO: troque aqui ====== */
+const CONFIG = {
+  nome: "Eduardo Chultz",          // seu nome ou nome da marca
+  whatsapp: "5551981117822",       // 55 + DDD + número, só dígitos
+  whatsappTexto: "(51) 98111-7822" // como o número aparece escrito
+};
+/* ====================================== */
+
+const Q = [
+  {k:"obj", t:"Qual é o seu <em>objetivo</em> principal?", o:[
+    ["massa","Ganhar massa muscular"],["definir","Perder gordura e definir"],
+    ["cond","Melhorar condicionamento"],["saude","Saúde e disposição"]]},
+  {k:"exp", t:"Há quanto tempo você <em>treina</em>?", o:[
+    ["zero","Nunca treinei ou estou parado"],["ini","Menos de 6 meses"],
+    ["med","De 6 meses a 2 anos"],["exp","Mais de 2 anos"]]},
+  {k:"tempo", t:"Quanto <em>tempo</em> você tem por treino?", o:[
+    ["curto","Até 40 minutos"],["medio","De 40 min a 1 hora"],["longo","Mais de 1 hora"]]},
+  {k:"dias", t:"Quantos <em>dias</em> por semana dá pra treinar?", o:[
+    ["2","2 a 3 dias"],["4","4 dias"],["5","5 dias ou mais"]]},
+  {k:"dor", t:"O que mais te <em>atrapalha</em> hoje?", o:[
+    ["const","Falta de constância e motivação"],["result","Treino, mas não vejo resultado"],
+    ["tempo","Falta de tempo"],["saber","Não sei montar meu treino"]]},
+  {k:"mod", t:"Como você <em>prefere</em> treinar?", o:[
+    ["pres","Presencial, com personal do lado"],["online","Online, no meu horário"],["nsei","Ainda não sei"]]}
+];
+
+const A = {};
+let cur = 0;
+const $ = id => document.getElementById(id);
+
+document.getElementById("brandName").textContent = CONFIG.nome;
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));
+  $(id).classList.add("on");
+  window.scrollTo({top:0});
+}
+
+function go(i){
+  cur = i;
+  const q = Q[i];
+  $("bar").style.width = (i/Q.length*100)+"%";
+  $("stepLabel").textContent = `Pergunta ${i+1} de ${Q.length}`;
+  $("qTitle").innerHTML = q.t;
+  $("opts").innerHTML = "";
+  q.o.forEach(([v,label],n)=>{
+    const b = document.createElement("button");
+    b.className = "opt" + (A[q.k]===v ? " sel" : "");
+    b.innerHTML = `<b>${"ABCD"[n]}</b>${label}`;
+    b.onclick = ()=>{
+      A[q.k] = v;
+      b.classList.add("sel");
+      setTimeout(()=> i+1<Q.length ? go(i+1) : show(A.mod==="pres" ? "s-local" : "s-name"), 180);
+    };
+    $("opts").appendChild(b);
+  });
+  show("s-q");
+}
+
+function back(){ cur>0 ? go(cur-1) : show("s-start"); }
+
+function label(k){ const q=Q.find(x=>x.k===k); return q.o.find(o=>o[0]===A[k])[1]; }
+
+function perfil(){
+  if (A.exp==="zero" || A.exp==="ini") return {
+    t:"Perfil <em>Recomeço</em>",
+    d:"Você está na fase em que o corpo mais responde. O erro mais comum aqui é achar que precisa sair do treino destruído. O que gera resultado é estímulo certo, técnica e constância.",
+    tips:["Aprenda a técnica dos exercícios multiarticulares, como agachamento, supino e remada, antes de buscar carga.",
+          "Termine as séries com 1 a 2 repetições sobrando. Cansaço extremo não é sinônimo de resultado.",
+          "Treine em horário fixo. Nas primeiras semanas, constância vale mais que intensidade."]};
+  if (A.tempo==="curto" || A.dor==="tempo") return {
+    t:"Perfil <em>Tempo Curto</em>",
+    d:"Pouco tempo não é o problema. O problema é treino longo, cheio de exercícios e com descanso sem controle. Com 40 minutos bem montados dá pra ganhar massa.",
+    tips:["Priorize exercícios multiarticulares: mais músculos trabalhando em cada série.",
+          "Descanse de 2 a 3 minutos entre as séries. É o suficiente pra render bem na próxima, sem perder tempo no celular.",
+          "Menos exercícios e séries de qualidade. O objetivo é o melhor estímulo, não sair exausto."]};
+  if (A.dor==="result" || A.exp==="exp") return {
+    t:"Perfil <em>Estagnado</em>",
+    d:"Você treina, mas o corpo parou de responder. Quase sempre não é falta de esforço: é falta de progressão, ou um treino que gera fadiga demais e estímulo de menos.",
+    tips:["Anote cargas e repetições e busque progredir, nem que seja uma repetição a mais.",
+          "Pare de ir à falha em todas as séries. Deixe 1 a 2 repetições sobrando e guarde a falha pra última série.",
+          "Revise a técnica: amplitude completa e controle valem mais que carga roubada."]};
+  return {
+    t:"Perfil <em>Em Evolução</em>",
+    d:"Você já tem uma base. O que separa quem continua evoluindo de quem estaciona é um treino com método e alguém ajustando no caminho.",
+    tips:["Siga um treino montado pra sua rotina e seus dias disponíveis, não uma ficha genérica.",
+          "Planeje a progressão de carga e repetições, semana a semana.",
+          "Seja constante: treinar bem toda semana vale mais que treinar muito em uma."]};
+}
+
+function oferta(){
+  if (A.mod==="pres") return {t:"Aula experimental grátis",
+    x:"Treine uma vez comigo, presencialmente, sem pagar nada. Você sente na prática a diferença de um treino com método e acompanhamento de perto.",
+    msg:"quero agendar minha aula experimental grátis"};
+  if (A.mod==="online") return {t:"Consultoria online",
+    x:"Treino montado pro seu perfil e pra sua rotina, com o meu método, e suporte semanal pelo app. Você treina no seu horário e não fica sozinho.",
+    msg:"quero saber como funciona a consultoria online"};
+  return {t:"Presencial ou online: você escolhe",
+    x:"Posso te atender presencialmente, com aula experimental grátis, ou pela consultoria online com suporte semanal. Me chama que eu te ajudo a decidir.",
+    msg:"quero entender qual opção é melhor pra mim, presencial ou online"};
+}
+
+function showResult(){
+  const nome = ($("nome").value||"").trim();
+  const p = perfil(), o = oferta();
+  const titlePlain = p.t.replace(/<[^>]+>/g,"");
+  $("rHello").textContent = nome ? `${nome}, seu resultado` : "Seu resultado";
+  $("rTitle").innerHTML = p.t;
+  $("rDesc").textContent = p.d;
+  $("rTips").innerHTML = p.tips.map(t=>`<li>${t}</li>`).join("");
+  $("oTitle").textContent = o.t;
+  $("oText").textContent = o.x;
+
+  const cid = ($("cidade").value||"").trim(), acad = ($("academia").value||"").trim();
+  const local = A.mod==="pres" ? `\nCidade/bairro: ${cid||"não informei"}\nAcademia: ${acad||"não informei"}` : "";
+  const msg =
+`Oi! ${nome ? "Sou "+nome+", " : ""}fiz o quiz e meu resultado foi: ${titlePlain}.
+Objetivo: ${label("obj")}
+Treino há: ${label("exp")}
+Tempo por treino: ${label("tempo")} | ${label("dias")}
+Dificuldade: ${label("dor")}
+Preferência: ${label("mod")}${local}
+Vim pelo Instagram e ${o.msg}.`;
+
+  $("cta").href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+  $("numTxt").textContent = `WhatsApp: ${CONFIG.whatsappTexto}`;
+  show("s-result");
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter") return;
+  if($("s-local").classList.contains("on")){e.preventDefault();show("s-name");}
+  else if($("s-name").classList.contains("on")){e.preventDefault();showResult();}
+});
+
+function restart(){ for (const k in A) delete A[k]; $("nome").value=""; $("cidade").value=""; $("academia").value=""; show("s-start"); }
+</script>
+</body>
+</html>
